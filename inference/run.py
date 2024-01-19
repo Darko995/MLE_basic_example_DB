@@ -23,20 +23,6 @@ import pickle
 import sys
 from datetime import datetime
 from typing import List
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
-import logging
-import time
-from datetime import datetime
-import argparse
-import pandas as pd
-import time
-from datetime import datetime
-import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 
 # Adds the root directory to system path
