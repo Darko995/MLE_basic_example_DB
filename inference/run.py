@@ -25,7 +25,7 @@ from datetime import datetime
 from typing import List
 from sklearn.tree import DecisionTreeClassifier
 
-# Adds the root directory to system path
+# Adds the root directory to the system path
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(ROOT_DIR))
 
@@ -45,13 +45,11 @@ RESULTS_DIR = get_project_dir(conf['general']['results_dir'])
 
 # Initializes parser for command line arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--infer_file", 
+parser.add_argument("--train_file", 
                     help="Specify inference data file", 
-                    default=conf['inference']['inp_table_name'])
-parser.add_argument("--out_path", 
-                    help="Specify the path to the output table")
-
-
+                    default=conf['train']['table_name'])
+parser.add_argument("--model_path", 
+                    help="Specify the path for the output model")
 def get_latest_model_path() -> str:
     """Gets the path of the latest saved model"""
     latest = None
