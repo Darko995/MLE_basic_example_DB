@@ -2,6 +2,14 @@
 Script loads the latest trained model, data for inference and predicts results.
 Imports necessary packages and modules.
 """
+import os
+import sys
+import pickle
+import json
+import logging
+import pandas as pd
+import time
+from datetime import datetime
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -12,18 +20,7 @@ import logging
 import time
 from datetime import datetime
 import argparse
-import pandas as pd
-import time
-from datetime import datetime
-import argparse
-import json
-import logging
-import os
-import pickle
-import sys
-from datetime import datetime
 from typing import List
-from sklearn.tree import DecisionTreeClassifier
 
 # Adds the root directory to the system path
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
