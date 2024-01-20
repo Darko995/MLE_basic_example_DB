@@ -38,7 +38,8 @@ INFERENCE_PATH = os.path.join(DATA_DIR, conf['inference']['inp_table_name'])
 @singleton
 class IrisDatasetGenerator():
     def __init__(self):
-        self.df = None
+        self.df_train = None
+        self.df_inference = None
 
     # Method to load Iris dataset
     def load_iris_data(self):
@@ -46,11 +47,20 @@ class IrisDatasetGenerator():
         iris = load_iris()
         X = iris['data']
         y = iris['target']
-        self.df = pd.DataFrame(data=np.c_[X, y], columns=iris['feature_names'] + ['target'])
-        return self.df
+        self.df_train = pd.DataFrame(data=np.c_[X, y], columns=iris['feature_names'] + ['target'])
+        return self.df_train
+
+    # Method to create inference dataset from a portion of the loaded Iris dataset
+    def create_inference_data(self, fraction: float, save_path: str):
+        logger.info(f"Creating inference dataset with {fraction * 100}% of the data...")
+        num_rows = int(len(self.df_train) * fraction)
+        inference_data = self.df_train.sample(n=num_rows, random_state=42)
+        self.df_inference = inference_data
+        self.save(inference_data, save_path)
+        return self.df_inference
 
     # Method to save data
-    def save(self, df: pd.DataFrame, out_path: os.path):
+    def save(self, df: pd.DataFrame, out_path: str):
         logger.info(f"Saving data to {out_path}...")
         df.to_csv(out_path, index=False)
 
@@ -58,7 +68,15 @@ class IrisDatasetGenerator():
 if __name__ == "__main__":
     configure_logging()
     logger.info("Starting script...")
-    gen = IrisDatasetGenerator()
-    gen.load_iris_data()
-    gen.save(gen.df, save_path=TRAIN_PATH)
+    
+    # Create IrisDatasetGenerator instance
+    iris_gen = IrisDatasetGenerator()
+    
+    # Load and save training dataset
+    iris_gen.load_iris_data()
+    iris_gen.save(iris_gen.df_train, save_path=TRAIN_PATH)
+    
+    # Create and save inference dataset with 20% of the data
+    iris_gen.create_inference_data(fraction=0.2, save_path=INFERENCE_PATH)
+    
     logger.info("Script completed successfully.")
