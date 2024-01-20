@@ -58,7 +58,7 @@ def get_latest_model_path() -> str:
     return os.path.join(MODEL_DIR, latest)
 
 
-def get_model_by_path(path: str) -> DecisionTreeClassifier:
+def get_model_by_path(path: str) -> Model:
     """Loads and returns the specified model"""
     try:
         with open(path, 'rb') as f:
@@ -80,7 +80,7 @@ def get_inference_data(path: str) -> pd.DataFrame:
         sys.exit(1)
 
 
-def predict_results(model: DecisionTreeClassifier, infer_data: pd.DataFrame) -> pd.DataFrame:
+def predict_results(model: Model, infer_data: pd.DataFrame) -> pd.DataFrame:
     """Predict de results and join it with the infer_data"""
     results = model.predict(infer_data)
     infer_data['results'] = results
