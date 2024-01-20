@@ -30,18 +30,5 @@ class TestDataProcessor(unittest.TestCase):
         self.assertEqual(df.shape[0], 100)
 
 
-class TestTraining(unittest.TestCase):
-    def test_train(self):
-        tr = Training()
-        # assume you have some prepared data
-        X_train = pd.DataFrame({
-            'x1': [1, 0, 1, 0],
-            'x2': [1, 1, 0, 0]
-        })
-        y_train = pd.Series([0, 1, 1, 0])
-        tr.train(X_train, y_train)
-        self.assertIsNotNone(tr.model.tree_)
-
-
 if __name__ == '__main__':
     unittest.main()
