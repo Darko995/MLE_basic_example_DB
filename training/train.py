@@ -93,7 +93,7 @@ class NeuralNetworkTraining():
 
     def data_split(self, df: pd.DataFrame, test_size: float = 0.33) -> tuple:
         logging.info("Splitting data into training and test sets...")
-        return train_test_split(df[['x1', 'x2']], df['y'], test_size=test_size, random_state=self.random_state)
+        return train_test_split(df[['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']], df['target'], test_size=test_size, random_state=self.random_state)
     
     def train(self, X_train: pd.DataFrame, y_train: pd.DataFrame) -> None:
         logging.info("Training the model...")
